@@ -1,6 +1,6 @@
 # For reference, see
 #http://www.ats.ucla.edu/stat/r/dae/logit.htm
-#setwd("C:/Users/Johnny/OneDrive/Documents/6372/Project3")
+#setwd("C:/Prostate_LogisticRegression/Analysis")
 setwd("C:/Users/Owner/Documents/GitHub/MSDS_6372/Prostate_LogisticRegression/Analysis")
 
 #install.packages("aod")
@@ -75,6 +75,28 @@ summary(prostatelogit2)
 
 detach(prostatedata.cleaned)
 
+##goodness of fit
+with(prostatelogit, null.deviance - deviance)
+with(prostatelogit, df.null - df.residual)
+with(prostatelogit, pchisq(null.deviance - deviance, df.null - df.residual, lower.tail = FALSE))
+logLik(prostatelogit)
+AIC(prostatelogit)
+BIC(prostatelogit)
+
+with(prostatelogit.interaction, null.deviance - deviance)
+with(prostatelogit.interaction, df.null - df.residual)
+with(prostatelogit.interaction, pchisq(null.deviance - deviance, df.null - df.residual, lower.tail = FALSE))
+logLik(prostatelogit.interaction)
+AIC(prostatelogit.interaction)
+BIC(prostatelogit.interaction)
+
+with(prostatelogit2, null.deviance - deviance)
+with(prostatelogit2, df.null - df.residual)
+with(prostatelogit2, pchisq(null.deviance - deviance, df.null - df.residual, lower.tail = FALSE))
+logLik(prostatelogit2)
+AIC(prostatelogit2)
+BIC(prostatelogit2)
+
 ## odds ratios and 95% CI
 exp(cbind(OR = coef(prostatelogit2), confint(prostatelogit2)))
 
@@ -100,15 +122,3 @@ predprostatedata3
 ggplot(predprostatedata3, aes(x = logPSA, y = PredictedProb)) +
   geom_ribbon(aes(ymin = LL, ymax = UL, fill = DPROS), alpha = .2) +
   geom_line(aes(colour = DPROS), size=1)
-
-##goodness of fit
-with(prostatelogit2, null.deviance - deviance)
-with(prostatelogit2, df.null - df.residual)
-with(prostatelogit2, pchisq(null.deviance - deviance, df.null - df.residual, lower.tail = FALSE))
-logLik(prostatelogit2)
-
-AIC(prostatelogit2)
-BIC(prostatelogit2)
-AIC(prostatelogit.interaction)
-BIC(prostatelogit.interaction)
-logLik(prostatelogit.interaction)
