@@ -1,7 +1,7 @@
 # For reference, see
 #http://www.ats.ucla.edu/stat/r/dae/logit.htm
 #setwd("C:/Users/Johnny/OneDrive/Documents/6372/Project3")
-setwd("C:\\Users\\Owner\\OneDrive for Business\\Semester_2\\Experimental Stats II (MSDS 6372)\\Project 3")
+setwd("C:/Users/Owner/Documents/GitHub/MSDS_6372/Prostate_LogisticRegression/Analysis")
 
 #install.packages("aod")
 library(aod)
