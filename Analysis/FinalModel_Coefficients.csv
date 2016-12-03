@@ -1,0 +1,6 @@
+Coefficients:,,,,,
+,Estimate,Std. Error,z value,Pr(>|z|),Stat sig
+(Intercept),-8.9252,1.0632,-8.395,<2E-16,***
+DPROS,0.5651,0.1321,4.279,1.88E-05,***
+logPSA,0.4514,0.1503,3.004,0.00267,**
+GLEASON,0.9581,0.1634,5.865,4.49E-09,***
