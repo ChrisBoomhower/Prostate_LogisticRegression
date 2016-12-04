@@ -63,14 +63,24 @@ attach(prostatedata.cleaned)
 # First Logit with all variables included
 prostatelogit <- glm(CAPSULE ~ AGE + RACE + DPROS + DCAPS + logPSA + VOL + GLEASON, data = prostatedata.cleaned, family = "binomial")
 
+## check VIF
+write.csv(vif(prostatelogit), file = "VIF_InitialModel.csv")
+
 summary(prostatelogit)
 
 prostatelogit.interaction <- glm(CAPSULE ~  AGE*RACE + AGE + RACE + DPROS*DCAPS + DPROS + DCAPS + logPSA + VOL + GLEASON, data = prostatedata.cleaned, family = "binomial")
+
+## check VIF
+write.csv(vif(prostatelogit.interaction), file = "VIF_InteractionModel.csv")
+
 summary(prostatelogit.interaction)
-## no interactions appear to exist between DCAPS and DPROS or AGE and RACE, so continue with no interactions in model
 
 ## Remove AGE, RACE, DCAPS, AND VOL as they are not statistically significant
 prostatelogit2 <- glm(CAPSULE ~ DPROS + logPSA + GLEASON, data = prostatedata.cleaned, family = "binomial")
+
+## check VIF
+write.csv(vif(prostatelogit2), file = "VIF_FinalModel.csv")
+
 summary(prostatelogit2)
 
 detach(prostatedata.cleaned)
