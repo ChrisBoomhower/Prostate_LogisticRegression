@@ -121,6 +121,9 @@ predprostatedata3 <- within(predprostatedata3, {
 })
 predprostatedata3
 
+predprostatedata4 <- cbind(predprostatedata1, oddsRatio = -predprostatedata1$DPROSP/(predprostatedata1$DPROSP-1), logOdds = log(-predprostatedata1$DPROSP/(predprostatedata1$DPROSP-1)))
+predprostatedata4
+
 prostatedata.cleaned$PredictedProb <- prostatedata.cleaned$CAPSULE
 ggplot(predprostatedata3, aes(x = logPSA, y = PredictedProb)) +
   geom_ribbon(aes(ymin = LL, ymax = UL, fill = DPROS), alpha = .2) +
