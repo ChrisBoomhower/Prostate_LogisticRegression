@@ -107,8 +107,10 @@ logLik(prostatelogit2)
 AIC(prostatelogit2)
 BIC(prostatelogit2)
 
-## odds ratios and 95% CI
-exp(cbind(OR = coef(prostatelogit2), confint(prostatelogit2)))
+## log odds and odds ratios with 95% CI
+logOdds <- cbind(Log.Odds = coef(prostatelogit2), confint(prostatelogit2))
+oddsRatio <- exp(cbind(OR = coef(prostatelogit2), confint(prostatelogit2)))
+cbind(logOdds, oddsRatio)
 
 ## predictions
 predprostatedata1 <- with(prostatedata.cleaned,
@@ -129,6 +131,13 @@ predprostatedata3 <- within(predprostatedata3, {
 })
 predprostatedata3
 
+predprostatedata4 <- cbind(predprostatedata1, oddsRatio = -predprostatedata1$DPROSP/(predprostatedata1$DPROSP-1), logOdds = log(-predprostatedata1$DPROSP/(predprostatedata1$DPROSP-1)))
+predprostatedata4
+
+prostatedata.cleaned$PredictedProb <- prostatedata.cleaned$CAPSULE
 ggplot(predprostatedata3, aes(x = logPSA, y = PredictedProb)) +
   geom_ribbon(aes(ymin = LL, ymax = UL, fill = DPROS), alpha = .2) +
-  geom_line(aes(colour = DPROS), size=1)
+  geom_line(aes(colour = DPROS), size=1) +
+  geom_jitter(data = prostatedata.cleaned, height = 0.05, width = 0) +
+  annotate("text", x = -1, y = 0.85, label = "Note: Jittered dots represent\nactual response", hjust = 0) +
+  labs(title = "Predicted Probabilities and 95% CIs for Prostate Cancer")
