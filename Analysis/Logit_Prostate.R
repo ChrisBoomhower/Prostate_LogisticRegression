@@ -119,6 +119,10 @@ predprostatedata3 <- within(predprostatedata3, {
 })
 predprostatedata3
 
+prostatedata.cleaned$PredictedProb <- prostatedata.cleaned$CAPSULE
 ggplot(predprostatedata3, aes(x = logPSA, y = PredictedProb)) +
   geom_ribbon(aes(ymin = LL, ymax = UL, fill = DPROS), alpha = .2) +
-  geom_line(aes(colour = DPROS), size=1)
+  geom_line(aes(colour = DPROS), size=1) +
+  geom_jitter(data = prostatedata.cleaned, height = 0.05, width = 0) +
+  annotate("text", x = -1, y = 0.85, label = "Note: Jittered dots represent\nactual response", hjust = 0) +
+  labs(title = "Predicted Probabilities and 95% CIs for Prostate Cancer")
