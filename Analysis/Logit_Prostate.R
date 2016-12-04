@@ -97,8 +97,10 @@ logLik(prostatelogit2)
 AIC(prostatelogit2)
 BIC(prostatelogit2)
 
-## odds ratios and 95% CI
-exp(cbind(OR = coef(prostatelogit2), confint(prostatelogit2)))
+## log odds and odds ratios with 95% CI
+logOdds <- cbind(Log.Odds = coef(prostatelogit2), confint(prostatelogit2))
+oddsRatio <- exp(cbind(OR = coef(prostatelogit2), confint(prostatelogit2)))
+cbind(logOdds, oddsRatio)
 
 ## predictions
 predprostatedata1 <- with(prostatedata.cleaned,
